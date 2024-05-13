@@ -5,8 +5,7 @@ import prisma from "./lib/db";
 import SkeletonCard from "./components/SkeletonCard";
 import NoItems from "./components/NoItems";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { Underdog } from "next/font/google";
-
+import { unstable_noStore as noStore } from "next/cache";
 //databaseden datalarimizi ceken fonk(searchParams ve userId kullaniyor)
 async function getData({
   searchParams,
@@ -21,6 +20,7 @@ async function getData({
     bathroom?: string;
   };
 }) {
+  noStore();
   const data = await prisma.home.findMany({
     where: {
       addedCategory: true,
